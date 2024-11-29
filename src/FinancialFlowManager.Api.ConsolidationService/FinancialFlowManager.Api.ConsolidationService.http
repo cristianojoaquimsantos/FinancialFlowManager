@@ -1,0 +1,6 @@
+@FinancialFlowManager.Api.ConsolidationService_HostAddress = http://localhost:5004
+
+GET {{FinancialFlowManager.Api.ConsolidationService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

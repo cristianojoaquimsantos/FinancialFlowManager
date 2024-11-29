@@ -1,0 +1,6 @@
+@FinancialFlowManager.Api.TransactionsService_HostAddress = http://localhost:5273
+
+GET {{FinancialFlowManager.Api.TransactionsService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

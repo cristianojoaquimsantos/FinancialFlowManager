@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Sdk Name="Aspire.AppHost.Sdk" Version="9.0.0" />
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsAspireHost>true</IsAspireHost>
+    <UserSecretsId>d10b2bef-1a50-4e4b-a364-97e2c7c25426</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.AppHost" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FinancialFlowManager.Api.ConsolidationService\FinancialFlowManager.Api.ConsolidationService.csproj" />
+    <ProjectReference Include="..\FinancialFlowManager.Api.TransactionsService\FinancialFlowManager.Api.TransactionsService.csproj" />
+  </ItemGroup>
+
+</Project>
