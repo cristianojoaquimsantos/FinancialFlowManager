@@ -1,6 +1,7 @@
 ﻿using FinancialFlowManager.Domain.Core.Data;
 using FinancialFlowManager.Domain.Core.Mediator;
 using FinancialFlowManager.Domain.Entities;
+using FinancialFlowManager.Infrastructure.EntityMappings;
 using FinancialFlowManager.Infrastructure.Extensions;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,7 +27,15 @@ namespace FinancialFlowManager.Infrastructure.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfiguration(new DailyConsolidationMapping());
+            modelBuilder.ApplyConfiguration(new FinacialAccountMapping());
+            modelBuilder.ApplyConfiguration(new LogAuditMapping());
+            modelBuilder.ApplyConfiguration(new TransactionCategoryMapping());
+            modelBuilder.ApplyConfiguration(new TransactionMapping());
+            modelBuilder.ApplyConfiguration(new UserMapping());
+
+
+            base.OnModelCreating(modelBuilder);            
         }
 
         public async Task<bool> Commit()

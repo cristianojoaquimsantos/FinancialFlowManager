@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="EntityMappings\" />
     <Folder Include="EventSourcing\" />
   </ItemGroup>
 
