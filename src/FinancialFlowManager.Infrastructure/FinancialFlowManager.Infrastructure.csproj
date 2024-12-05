@@ -9,10 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\FinancialFlowManager.Domain.Core\FinancialFlowManager.Domain.Core.csproj" />
     <ProjectReference Include="..\FinancialFlowManager.Domain\FinancialFlowManager.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="EventSourcing\" />
+    <ProjectReference Include="..\FinancialFlowManager.Infra.Identity\FinancialFlowManager.Infra.Identity.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,6 +23,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
 </Project>

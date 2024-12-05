@@ -49,6 +49,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancialFlowManager.AppHos
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancialFlowManager.ServiceDefaults", "src\FinancialFlowManager.ServiceDefaults\FinancialFlowManager.ServiceDefaults.csproj", "{F78241CB-69B0-4088-91A7-88C63656111B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "6.3 - Identity", "6.3 - Identity", "{56AE6D2F-C6F1-4A77-8284-BF819836D7E6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancialFlowManager.Infra.Identity", "src\FinancialFlowManager.Infra.Identity\FinancialFlowManager.Infra.Identity.csproj", "{4FF34E59-5D74-490C-B4B0-7D33E73EFD8A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -91,6 +95,10 @@ Global
 		{F78241CB-69B0-4088-91A7-88C63656111B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F78241CB-69B0-4088-91A7-88C63656111B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F78241CB-69B0-4088-91A7-88C63656111B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FF34E59-5D74-490C-B4B0-7D33E73EFD8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FF34E59-5D74-490C-B4B0-7D33E73EFD8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FF34E59-5D74-490C-B4B0-7D33E73EFD8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FF34E59-5D74-490C-B4B0-7D33E73EFD8A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -116,5 +124,7 @@ Global
 		{D51D6FBF-3444-4951-B535-7D894102EBC1} = {E2F79FC2-6AE0-4304-BB9D-64A5F9996B14}
 		{05664560-C2C4-4B0D-95F1-6C6721D31254} = {57AAB6CB-DD0F-4DE7-9BF4-E5F7406889C5}
 		{F78241CB-69B0-4088-91A7-88C63656111B} = {57AAB6CB-DD0F-4DE7-9BF4-E5F7406889C5}
+		{56AE6D2F-C6F1-4A77-8284-BF819836D7E6} = {B6CB6BAD-75C8-4ED0-9E63-A5FF37D37AAB}
+		{4FF34E59-5D74-490C-B4B0-7D33E73EFD8A} = {56AE6D2F-C6F1-4A77-8284-BF819836D7E6}
 	EndGlobalSection
 EndGlobal

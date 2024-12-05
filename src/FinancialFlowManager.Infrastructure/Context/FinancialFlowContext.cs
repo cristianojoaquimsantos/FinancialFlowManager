@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FinancialFlowManager.Infrastructure.Context
 {
-    internal class FinancialFlowContext: DbContext, IUnitOfWork
+    public class FinancialFlowContext: DbContext, IUnitOfWork
     {
         private readonly IMediatorHandler _mediatonHandler;
 
