@@ -1,6 +1,6 @@
-﻿using FinancialFlowManager.Infra.Identity.User.Interface;
+﻿using FinancialFlowManager.Infra.Identity.Extensions;
+using FinancialFlowManager.Infra.Identity.User.Interface;
 using Microsoft.AspNetCore.Http;
-using System.Net.Http;
 using System.Security.Claims;
 
 namespace FinancialFlowManager.Infra.Identity.User.Implementation
@@ -16,15 +16,15 @@ namespace FinancialFlowManager.Infra.Identity.User.Implementation
 
         public string Name => _accessor.HttpContext.User.Identity.Name;
 
-        //public Guid GetUserId()
-        //{
-        //    return IsAutenticated() ? Guid.Parse(_accessor.HttpContext.User.GetUserId()) : Guid.Empty;
-        //}
+        public Guid GetUserId()
+        {
+            return IsAutenticated() ? Guid.Parse(_accessor.HttpContext.User.GetUserId()) : Guid.Empty;
+        }
 
-        //public string GetUserEmail()
-        //{
-        //    return IsAutenticated() ? _accessor.HttpContext.User.GetUserEmail() : "";
-        //}
+        public string GetUserEmail()
+        {
+            return IsAutenticated() ? _accessor.HttpContext.User.GetUserEmail() : "";
+        }
 
         public bool IsAutenticated()
         {
@@ -44,11 +44,6 @@ namespace FinancialFlowManager.Infra.Identity.User.Implementation
         public HttpContext GetHttpContext()
         {
             return _accessor.HttpContext;
-        }
-
-        public Guid GetUserId()
-        {
-            throw new NotImplementedException();
         }
     }
 }

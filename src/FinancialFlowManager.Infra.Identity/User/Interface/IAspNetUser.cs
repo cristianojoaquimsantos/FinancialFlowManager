@@ -7,7 +7,7 @@ namespace FinancialFlowManager.Infra.Identity.User.Interface
     {
         string Name { get; }
         Guid GetUserId();
-        //string GetUserEmail();
+        string GetUserEmail();
         bool IsAutenticated();
         bool IsInRole(string role);
         IEnumerable<Claim> GetUserClaims();
