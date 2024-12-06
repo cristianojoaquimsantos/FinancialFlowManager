@@ -1,11 +1,13 @@
 using FinancialFlowManager.Application.AppService.Interface;
 using FinancialFlowManager.Application.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinancialFlowManager.Api.ConsolidationService.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class ConsolidationsController : ControllerBase
     {
         private readonly IDailyConsolidationAppService _dailyConsolidationAppService;

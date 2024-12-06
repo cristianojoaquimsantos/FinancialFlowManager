@@ -11,6 +11,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Commands\RemoveCommand\" />
+    <Folder Include="Commands\UpdateCommand\" />
+    <Folder Include="Commands\Validations\UpdateValidations\" />
+    <Folder Include="Commands\Validations\RemoveValidations\" />
+    <Folder Include="Events\" />
     <Folder Include="Repository\EventSourcing\Implementation\" />
   </ItemGroup>
 

@@ -1,9 +1,11 @@
 using FinancialFlowManager.Application.AppService.Interface;
 using FinancialFlowManager.Application.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class FinancialAccountsController : ControllerBase
 {
     private readonly IFinancialAccountAppService _financialAccountAppService;
