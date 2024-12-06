@@ -10,7 +10,7 @@ namespace FinancialFlowManager.Application.ViewModel
         }
 
         public string Name { get; private set; }
-        public TypeFinancialAccount Type { get; private set; }
+        public ETypeFinancialAccount Type { get; private set; }
         public decimal CurrentBalance { get; private set; }
         public DateTime LastUpdated { get; private set; }
 

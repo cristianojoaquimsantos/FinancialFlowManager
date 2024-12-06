@@ -1,6 +1,6 @@
 ﻿namespace FinancialFlowManager.Domain.Enums
 {
-    public enum TypeTransaction
+    public enum ETypeTransaction
     {
         Debit,
         Credit

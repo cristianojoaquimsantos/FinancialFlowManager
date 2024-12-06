@@ -15,7 +15,8 @@
     <Folder Include="Commands\UpdateCommand\" />
     <Folder Include="Commands\Validations\UpdateValidations\" />
     <Folder Include="Commands\Validations\RemoveValidations\" />
-    <Folder Include="Events\" />
+    <Folder Include="Events\Updated\" />
+    <Folder Include="Events\Removed\" />
     <Folder Include="Repository\EventSourcing\Implementation\" />
   </ItemGroup>
 

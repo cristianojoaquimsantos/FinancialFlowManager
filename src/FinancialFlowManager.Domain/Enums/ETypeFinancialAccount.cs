@@ -1,6 +1,6 @@
 ﻿namespace FinancialFlowManager.Domain.Enums
 {
-    public enum TypeFinancialAccount
+    public enum ETypeFinancialAccount
     {
         Checking,
         Savings
