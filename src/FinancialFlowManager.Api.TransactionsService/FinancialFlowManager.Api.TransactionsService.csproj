@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\FinancialFlowManager.Application\FinancialFlowManager.Application.csproj" />
     <ProjectReference Include="..\FinancialFlowManager.ServiceDefaults\FinancialFlowManager.ServiceDefaults.csproj" />
   </ItemGroup>
 

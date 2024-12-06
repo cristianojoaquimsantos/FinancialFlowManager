@@ -7,5 +7,6 @@ namespace FinancialFlowManager.Application.AppService.Interface
     {
         Task<TransactionCategoryViewModel?> GetAllAsync();
         Task<bool> CreateAsync(TransactionCategoryViewModel viewModel);
+        Task<bool> DeleteAsync(Guid id);
     }
 }

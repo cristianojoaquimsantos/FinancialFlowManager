@@ -1,5 +1,4 @@
-﻿using FinancialFlowManager.Domain.Core.Domain;
-using FinancialFlowManager.Domain.Enums;
+﻿using System;
 
 namespace FinancialFlowManager.Application.ViewModel
 {
@@ -7,25 +6,31 @@ namespace FinancialFlowManager.Application.ViewModel
     {
         public TransactionViewModel()
         {
-
+            
         }
 
-        public Guid UserId { get; private set; }
-        public Guid AssociatedAccountId { get; private set; }
-        public Guid ConsolidationId { get; private set; }
-        public Guid CategoryId { get; private set; } // Credit or Debit
-        public string Description { get; private set; }
-        public decimal Amount { get; private set; }
-        public DateTime DateTime { get; private set; }
-        public string Category { get; private set; }
-        public string PaymentMethod { get; private set; }
-        public string? SourceIdentifier { get; private set; }
-        public string Status { get; private set; }
+        public Guid UserId { get; set; }
+        public Guid AssociatedAccountId { get; set; }
+        public Guid ConsolidationId { get; set; }
+        public Guid CategoryId { get; set; } // Reference to the category (Credit/Debit)
+        public string Description { get; set; } = string.Empty; // Avoid nullability issues
+        public decimal Amount { get; set; }
+        public DateTimeOffset TransactionDate { get; set; } // Supports time zones
+        public string PaymentMethod { get; set; } = string.Empty; // Payment method details
+        public string? SourceIdentifier { get; set; } // Optional identifier for external systems
+        public TransactionStatus Status { get; set; } // Enum for transaction status
 
+        // Navigation properties
+        public FinancialAccountViewModel? AssociatedAccount { get; set; }
+        public TransactionCategoryViewModel? TransactionCategory { get; set; }
+        public DailyConsolidationViewModel? DailyConsolidation { get; set; }
+        public UserViewModel? UserViewModel { get; set; }
+    }
 
-        public virtual FinancialAccountViewModel AssociatedAccount { get; set; }
-        public virtual TransactionCategoryViewModel TransactionCategory { get; set; }
-        public virtual DailyConsolidationViewModel DailyConsolidation { get; set; }
-        public virtual UserViewModel UserViewModel { get; set; }
+    public enum TransactionStatus
+    {
+        Pending,
+        Completed,
+        Cancelled
     }
 }

@@ -23,5 +23,10 @@ namespace FinancialFlowManager.Application.AppService.Implementation
         {
             throw new NotImplementedException();
         }
+
+        public Task<bool> DeleteAsync(Guid id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
