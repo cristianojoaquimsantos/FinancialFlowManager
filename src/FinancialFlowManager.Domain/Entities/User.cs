@@ -4,9 +4,13 @@ namespace FinancialFlowManager.Domain.Entities
 {
     public class User: Entity
     {
-        public User()
+        public User(string name,
+                    string email,
+                    string role)
         {
-            
+            Name = name;
+            Email = email;
+            Role = role;
         }
 
         public string Name { get; private set; }

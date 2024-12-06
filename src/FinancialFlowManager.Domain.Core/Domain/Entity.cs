@@ -8,6 +8,8 @@ namespace FinancialFlowManager.Domain.Core.Domain
 
         private List<Event> _domainEvents;
         public Guid Id { get; set; }
+        public DateTime DateCreated { get; private set; }
+        public DateTime? DateUpdate { get; private set; }
 
         public IReadOnlyCollection<Event>? DomainEvents
         {

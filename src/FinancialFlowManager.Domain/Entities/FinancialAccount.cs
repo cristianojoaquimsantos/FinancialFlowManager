@@ -5,9 +5,14 @@ namespace FinancialFlowManager.Domain.Entities
 {
     public class FinancialAccount: Entity
     {
-        public FinancialAccount()
+        public FinancialAccount(string name,
+                                TypeFinancialAccount type,
+                                decimal currentBalance)
         {
-            
+            Name = name;
+            Type = type;
+            CurrentBalance = currentBalance;
+            LastUpdated = DateTime.Now;
         }
 
         public string Name { get; private set; }

@@ -24,6 +24,7 @@ namespace FinancialFlowManager.Infrastructure.Context
         public DbSet<TransactionCategory> TransactionCategory { get; set; }
         public DbSet<User> User { get; set; }
         public DbSet<FinancialAccount> FinancialAccount { get; set; }
+        public DbSet<PaymentMethod> PaymentMethod { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -4,12 +4,13 @@ namespace FinancialFlowManager.Domain.Entities
 {
     public class TransactionCategory: Entity
     {
-        public TransactionCategory()
+        public TransactionCategory(string name,
+                                   string type)
         {
-            
+            Name = name;
+            Type = type;
         }
 
-        public Guid Id { get; private set; }
         public string Name { get; private set; }
         public string Type { get; private set; } // Credit or Debit
 
