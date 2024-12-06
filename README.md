@@ -73,21 +73,21 @@ The project utilizes modern architectural patterns and practices to ensure a rob
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/your-username/financialflowmanager.git
-   cd financialflowmanager
+   git clone https://github.com/cristianojoaquimsantos/FinancialFlowManager.git
+   cd FinancialFlowManager
    ```
 
 2. **Set Up the Database**:
-   - Configure the connection string in `appsettings.json`.
+   - Configure the connection string in `src/FinancialFlowManager.Api/appsettings.json`.
    - Run the migrations:
      ```bash
-     dotnet ef database update
+     dotnet ef database update --project src/FinancialFlowManager.Infrastructure/
      ```
 
 3. **Build and Run the Application**:
    ```bash
    dotnet build
-   dotnet run
+   dotnet run --project src/FinancialFlowManager.Api/
    ```
 
 4. **Access the API Documentation**:
@@ -106,38 +106,18 @@ The project utilizes modern architectural patterns and practices to ensure a rob
 The solution is organized as follows:
 
 ```
-FinancialFlowManager
-│
-├── FinancialFlowManager.Domain
-│   ├── Entities
-│   ├── ValueObjects
-│   ├── Interfaces
-│   └── Events
-│
-├── FinancialFlowManager.Application
-│   ├── Commands
-│   ├── Queries
-│   └── Services
-│
-├── FinancialFlowManager.TransactionsService
-│   └── API Controllers
-│
-├── FinancialFlowManager.ConsolidationService
-│   └── API Controllers
-│
-├── FinancialFlowManager.Infrastructure
-│   ├── Data Contexts
-│   ├── Migrations
-│   └── Repositories
-│
-├── FinancialFlowManager.CrossCutting
-│   ├── Logging
-│   ├── Configuration
-│   └── DependencyInjection
-│
-└── FinancialFlowManager.Tests
-    ├── UnitTests
-    └── IntegrationTests
+FinancialFlowManager/
+├── .idea/                             # IDE configuration files
+├── src/                               # Main source code
+│   ├── FinancialFlowManager.Api/      # API controllers and overall configuration
+│   ├── FinancialFlowManager.Application/ # Application logic, including commands and queries
+│   ├── FinancialFlowManager.Domain/   # Defines entities, aggregates, domain events, and interfaces
+│   ├── FinancialFlowManager.Infrastructure/ # Repositories, data contexts, and migrations
+│   └── FinancialFlowManager.Tests/    # Unit and integration tests
+├── .dockerignore                      # Docker ignore configuration
+├── .gitignore                         # Git ignore configuration
+├── FinancialFlowManager.sln           # Visual Studio solution file
+└── README.md                          # Project documentation
 ```
 
 ## Future Enhancements
@@ -152,4 +132,3 @@ Contributions are welcome! Please open an issue or submit a pull request with yo
 
 ## License
 This project is licensed under the MIT License. See the LICENSE file for details.
-
