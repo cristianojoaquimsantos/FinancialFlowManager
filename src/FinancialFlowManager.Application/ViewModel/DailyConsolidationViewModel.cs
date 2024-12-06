@@ -13,7 +13,6 @@
         public decimal TotalCredits { get; private set; }
         public decimal TotalDebits { get; private set; }
         public decimal ClosingBalance { get; private set; }
-        public DateTime LastUpdated { get; private set; }
 
         public virtual ICollection<TransactionViewModel> Transactions { get; set; }
     }

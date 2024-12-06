@@ -12,5 +12,10 @@ namespace FinancialFlowManager.Infrastructure.Repository
         {
             Db = context;
         }
+
+        public async Task<DailyConsolidation> GetByDateAsync(DateTime date)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
