@@ -4,9 +4,11 @@ namespace FinancialFlowManager.Domain.Entities
 {
     public class TypeFinancialAccount: Entity
     {
-        public TypeFinancialAccount()
+        public TypeFinancialAccount(string typeName,
+                                    string descriptionType)
         {
-            
+            TypeName = typeName;
+            DescriptionType = descriptionType;
         }
 
         public string TypeName { get; private set; }
