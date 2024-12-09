@@ -1,0 +1,70 @@
+version: "3.9"
+
+services:
+  # SQL Server
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: sqlserver
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=w2&s4PkBBk*dZow^
+    ports:
+      - "1433:1433"
+    volumes:
+      - sql_data:/var/opt/mssql
+    healthcheck:
+      test: ["CMD-SHELL", "sqlcmd -S localhost -U sa -P w2&s4PkBBk*dZow^ -Q 'SELECT 1'"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # HashiCorp Vault
+  vault:
+    image: vault:latest
+    container_name: vault
+    ports:
+      - "8200:8200"
+    environment:
+      VAULT_DEV_ROOT_TOKEN_ID: root
+      VAULT_DEV_LISTEN_ADDRESS: "0.0.0.0:8200"
+    command: vault server -dev -dev-root-token-id=root
+    volumes:
+      - vault_data:/vault
+
+  # ConsolidationService API
+  consolidationservice:
+    build:
+      context: ./FinancialFlowManager.Api.ConsolidationService
+      dockerfile: Dockerfile
+    container_name: consolidationservice
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=FinancialManager;User=sa;Password=w2&s4PkBBk*dZow^;
+      - Vault__Address=http://vault:8200
+      - Vault__Token=root
+    ports:
+      - "5001:80"
+    depends_on:
+      - sqlserver
+      - vault
+
+  # TransactionsService API
+  transactionsservice:
+    build:
+      context: ./FinancialFlowManager.Api.TransactionsService
+      dockerfile: Dockerfile
+    container_name: transactionsservice
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=FinancialManager;User=sa;Password=w2&s4PkBBk*dZow^;
+      - Vault__Address=http://vault:8200
+      - Vault__Token=root
+    ports:
+      - "5002:80"
+    depends_on:
+      - sqlserver
+      - vault
+
+volumes:
+  sql_data:
+  vault_data:
