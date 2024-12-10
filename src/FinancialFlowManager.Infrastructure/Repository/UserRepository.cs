@@ -1,8 +1,8 @@
 ﻿using FinancialFlowManager.Domain.Entities;
+using FinancialFlowManager.Domain.Repository.Interface;
 using FinancialFlowManager.Infrastructure.Context;
-using FinancialFlowManager.Infrastructure.Repository;
 
-namespace FinancialFlowManager.Domain.Repository.Interface
+namespace FinancialFlowManager.Infrastructure.Repository
 {
     public class UserRepository : RepositoryBase<User>, IUserRepository
     {
