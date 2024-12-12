@@ -10,7 +10,7 @@ namespace FinancialFlowManager.Api.ConsolidationService.Configurations
             if (services == null) throw new ArgumentNullException(nameof(services));
 
             var vaultService = new VaultService(configuration);
-            var connectionString = vaultService.GetConnectionString();
+            var connectionString = vaultService.GetConnectionStringAsync().Result;
 
             services.AddDbContext<FinancialFlowContext>(options =>
                 options.UseSqlServer(connectionString));

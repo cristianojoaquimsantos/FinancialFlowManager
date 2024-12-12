@@ -1,23 +1,28 @@
-﻿namespace FinancialFlowManager.Api.ConsolidationService.Configurations
+﻿using Newtonsoft.Json.Linq;
+
+namespace FinancialFlowManager.Api.ConsolidationService.Configurations
 {
     public class VaultService
     {
-        private readonly IConfiguration _configuration;
+        private readonly string _vaultAddress;
+        private readonly string _vaultToken;
 
         public VaultService(IConfiguration configuration)
         {
-            _configuration = configuration;
+            _vaultAddress = configuration["Vault__Address"];
+            _vaultToken = configuration["Vault__Token"];
         }
 
-        public string GetConnectionString()
+        public async Task<string> GetConnectionStringAsync()
         {
-            // Endpoint do Vault e token de autenticação
-            var vaultAddress = _configuration["Vault:Address"];
-            var vaultToken = _configuration["Vault:Token"];
+            using var client = new HttpClient();
+            client.DefaultRequestHeaders.Add("X-Vault-Token", _vaultToken);
 
-            // Simulação de chamada ao Vault para buscar o segredo
-            // Substitua por lógica real de integração com Vault
-            return "Server=sqlserver,1433;Database=FinancialManager;User Id=sa;Password=w2&s4PkBBk*dZow^;TrustServerCertificate=True;";
+            var response = await client.GetAsync($"{_vaultAddress}/v1/secret/data/financialmanager");
+            response.EnsureSuccessStatusCode();
+
+            var json = JObject.Parse(await response.Content.ReadAsStringAsync());
+            return json["data"]["data"]["ConnectionString"].ToString();
         }
     }
 }
