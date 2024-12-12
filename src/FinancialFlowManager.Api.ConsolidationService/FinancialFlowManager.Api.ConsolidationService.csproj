@@ -10,12 +10,14 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\FinancialFlowManager.Application\FinancialFlowManager.Application.csproj" />
+    <ProjectReference Include="..\FinancialFlowManager.CrossCutting\FinancialFlowManager.CrossCutting.IoC.csproj" />
     <ProjectReference Include="..\FinancialFlowManager.ServiceDefaults\FinancialFlowManager.ServiceDefaults.csproj" />
   </ItemGroup>
 
