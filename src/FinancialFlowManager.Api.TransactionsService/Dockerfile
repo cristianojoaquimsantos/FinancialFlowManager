@@ -12,7 +12,14 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["src/FinancialFlowManager.Api.TransactionsService/FinancialFlowManager.Api.TransactionsService.csproj", "src/FinancialFlowManager.Api.TransactionsService/"]
+COPY src/FinancialFlowManager.Api.TransactionsService/FinancialFlowManager.Api.TransactionsService.csproj src/FinancialFlowManager.Api.TransactionsService/
+COPY src/FinancialFlowManager.Application/FinancialFlowManager.Application.csproj FinancialFlowManager.Application/
+COPY src/FinancialFlowManager.Domain/FinancialFlowManager.Domain.csproj FinancialFlowManager.Domain/
+COPY src/FinancialFlowManager.Domain.Core/FinancialFlowManager.Domain.Core.csproj FinancialFlowManager.Domain.Core/
+COPY src/FinancialFlowManager.Infrastructure/FinancialFlowManager.Infrastructure.csproj FinancialFlowManager.Infrastructure/
+COPY src/FinancialFlowManager.CrossCutting/FinancialFlowManager.CrossCutting.IoC.csproj FinancialFlowManager.CrossCutting.IoC/
+COPY src/FinancialFlowManager.Infra.Identity/FinancialFlowManager.Infra.Identity.csproj FinancialFlowManager.Infra.Identity/
+
 RUN dotnet restore "./src/FinancialFlowManager.Api.TransactionsService/FinancialFlowManager.Api.TransactionsService.csproj"
 COPY . .
 WORKDIR "/src/src/FinancialFlowManager.Api.TransactionsService"

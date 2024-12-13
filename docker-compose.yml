@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   # SQL Server
   sqlserver:
@@ -8,63 +6,82 @@ services:
     environment:
       - ACCEPT_EULA=Y
       - SA_PASSWORD=w2&s4PkBBk*dZow^
+      - MSSQL_TCP_PORT=1433
+      - MSSQL_PID=Express
+      - MSSQL_AGENT_ENABLED=true
+      - MSSQL_SSL_CONFIG="disable" # Configuração para desabilitar SSL
     ports:
-      - "1433:1433"
-    volumes:
-      - sql_data:/var/opt/mssql
-    healthcheck:
-      test: ["CMD-SHELL", "sqlcmd -S localhost -U sa -P w2&s4PkBBk*dZow^ -Q 'SELECT 1'"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+      - "1433:1433" # Porta do SQL Server
 
   # HashiCorp Vault
   vault:
-    image: vault:latest
+    image: vault:1.13.2
     container_name: vault
     ports:
-      - "8200:8200"
+      - "8200:8200" # Porta do Vault
     environment:
-      VAULT_DEV_ROOT_TOKEN_ID: root
-      VAULT_DEV_LISTEN_ADDRESS: "0.0.0.0:8200"
-    command: vault server -dev -dev-root-token-id=root
+      VAULT_DEV_ROOT_TOKEN_ID: root # Token raiz para o modo dev do Vault
+      VAULT_DEV_LISTEN_ADDRESS: "0.0.0.0:8200" # Endereço de escuta do Vault
     volumes:
-      - vault_data:/vault
+      - vault_data:/vault # Volume para persistência de dados do Vault
+    depends_on:
+      sqlserver:  # Garantir que o SQL Server seja inicializado antes
+        condition: service_started
+    entrypoint: >
+      sh -c "
+      echo 'Iniciando o Vault em modo de desenvolvimento...' &&
+      vault server -dev -dev-root-token-id=root &
+      echo 'Aguardando o Vault ficar disponível...' &&
+      until wget -q --spider http://127.0.0.1:8200/v1/sys/health; do
+          echo 'Vault ainda não disponível. Tentando novamente...'
+          sleep 1
+      done &&
+      echo 'Vault disponível. Configurando secrets...' &&
+      export VAULT_ADDR='http://127.0.0.1:8200' &&
+      export VAULT_TOKEN='root' &&
+      vault secrets enable -path=FinancialFlow kv &&
+      vault kv put FinancialFlow/ConnectionString ConnectionString='Server=sqlserver,1433;Database=FinancialManager;User Id=sa;Password=w2&s4PkBBk*dZow^;TrustServerCertificate=True;' &&
+      echo 'Configuração concluída com sucesso. Mantendo o container ativo...' &&
+      tail -f /dev/null
+      "
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8200/v1/sys/health"]
+      interval: 10s # Intervalo entre verificações de saúde
+      timeout: 5s # Tempo limite para a verificação de saúde
+      retries: 5 # Tentativas antes de marcar como não saudável
 
   # ConsolidationService API
   consolidationservice:
     build:
-      context: ./FinancialFlowManager.Api.ConsolidationService
-      dockerfile: Dockerfile
+      context: . # Contexto do build definido como a raiz do repositório
+      dockerfile: src/FinancialFlowManager.Api.ConsolidationService/Dockerfile # Caminho do Dockerfile
     container_name: consolidationservice
     environment:
-      - ASPNETCORE_ENVIRONMENT=Production
-      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=FinancialManager;User=sa;Password=w2&s4PkBBk*dZow^;
-      - Vault__Address=http://vault:8200
-      - Vault__Token=root
+      - ASPNETCORE_ENVIRONMENT=Production # Ambiente de produção para o .NET Core
+      - Vault__Address=http://vault:8200 # URL do Vault
+      - Vault__Token=root # Token do Vault
     ports:
-      - "5001:80"
+      - "5001:80" # Porta exposta para o serviço
     depends_on:
-      - sqlserver
-      - vault
+      - sqlserver # Garantir que o SQL Server esteja ativo antes
+      - vault # Garantir que o Vault esteja ativo antes
 
-  # TransactionsService API
-  transactionsservice:
-    build:
-      context: ./FinancialFlowManager.Api.TransactionsService
-      dockerfile: Dockerfile
-    container_name: transactionsservice
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Production
-      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=FinancialManager;User=sa;Password=w2&s4PkBBk*dZow^;
-      - Vault__Address=http://vault:8200
-      - Vault__Token=root
-    ports:
-      - "5002:80"
-    depends_on:
-      - sqlserver
-      - vault
+  # TransactionsService API (comentado, pode ser habilitado futuramente)
+   transactionsservice:
+     build:
+       context: ./src/FinancialFlowManager.Api.TransactionsService
+       dockerfile: Dockerfile
+     container_name: transactionsservice
+     environment:
+       - ASPNETCORE_ENVIRONMENT=Production
+       - Vault__Address=http://localhost:8200
+       - Vault__Token=root
+     ports:
+       - "5002:80"
+     depends_on:
+       - sqlserver
+       - vault
 
 volumes:
-  sql_data:
-  vault_data:
+  sql_data: # Volume para persistência de dados do SQL Server
+  vault_data: # Volume para persistência de dados do Vault
